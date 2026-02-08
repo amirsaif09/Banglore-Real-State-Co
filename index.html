@@ -1,1 +1,1539 @@
-reduced
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Bangalore Real Estate Co. | Premium Properties</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bangalore's premier real estate advisory for luxury residential and commercial properties.">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Maps API -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5uKjV-_Pm3GXr8Nq6Q0BvLq7W8B8Y8Tc&callback=initMap" async defer></script>
+
+  <style>
+    :root {
+      --primary: #0f172a;      /* Deep navy */
+      --secondary: #b8860b;    /* Rich gold */
+      --accent: #1e40af;       /* Royal blue */
+      --light: #f8fafc;        /* Off-white */
+      --dark: #0a0a0a;         /* Near black */
+      --text: #334155;         /* Slate gray */
+      --card-bg: #ffffff;
+      --success: #10b981;      /* Emerald */
+      --shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--light);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      font-size: 16px;
+    }
+
+    /* HEADER - Mobile Optimized */
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      background: rgba(15, 23, 42, 0.98);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+      padding: 0;
+    }
+
+    .header-scrolled {
+      padding: 0;
+    }
+
+    .nav {
+      max-width: 100%;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .logo i {
+      font-size: 1.1rem;
+    }
+
+    .logo span {
+      color: var(--light);
+      display: inline-block;
+    }
+
+    .logo-short {
+      display: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #e5e7eb;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      position: relative;
+      padding: 5px 0;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--secondary);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--secondary);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .cta-button {
+      background: var(--secondary);
+      color: var(--primary);
+      padding: 0.6rem 1.2rem;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .cta-button:hover {
+      background: #d4a017;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(184, 134, 11, 0.2);
+    }
+
+    .mobile-menu {
+      display: none;
+      font-size: 1.5rem;
+      color: var(--light);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 5px;
+    }
+
+    /* Mobile Menu Overlay */
+    .mobile-nav-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.95);
+      z-index: 999;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .mobile-nav-overlay.active {
+      display: flex;
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .mobile-nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 500;
+      padding: 10px;
+      transition: var(--transition);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .mobile-nav-links a:hover {
+      color: var(--secondary);
+    }
+
+    .close-mobile-menu {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    /* HERO - Mobile Optimized */
+    .hero {
+      height: 100vh;
+      min-height: 600px;
+      max-height: 900px;
+      background: linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.7)),
+                  url("https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80") center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 0 20px;
+    }
+
+    .hero-content {
+      max-width: 100%;
+      padding: 20px;
+      color: white;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      max-width: 100%;
+      opacity: 0.9;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 1.8rem;
+      background: var(--secondary);
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 4px;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      text-align: center;
+      flex: 1;
+      min-width: 160px;
+    }
+
+    .btn:hover {
+      background: #d4a017;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(184, 134, 11, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 2px solid var(--secondary);
+    }
+
+    .btn-outline:hover {
+      background: var(--secondary);
+      color: var(--primary);
+    }
+
+    /* SECTIONS - Mobile Optimized */
+    section {
+      max-width: 100%;
+      margin: auto;
+      padding: 4rem 1.25rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 0 10px;
+    }
+
+    .section-title h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+      padding-bottom: 15px;
+      margin-bottom: 10px;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 3px;
+      background: var(--secondary);
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--text);
+      max-width: 100%;
+      margin: 15px auto 0;
+      line-height: 1.5;
+    }
+
+    /* SERVICES */
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 0 10px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border-top: 4px solid transparent;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      border-top-color: var(--secondary);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      color: var(--secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .card h3 {
+      margin-bottom: 1rem;
+      color: var(--primary);
+      font-size: 1.4rem;
+    }
+
+    /* PROPERTIES */
+    .properties {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      padding: 0 10px;
+    }
+
+    .property {
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .property:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .property-img {
+      height: 220px;
+      width: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .property:hover .property-img {
+      transform: scale(1.05);
+    }
+
+    .property-content {
+      padding: 1.5rem;
+    }
+
+    .property h4 {
+      margin-bottom: 0.8rem;
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+
+    .property-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
+
+    .property-features {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    .feature i {
+      color: var(--secondary);
+    }
+
+    .property-tag {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--secondary);
+      color: var(--primary);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      z-index: 1;
+    }
+
+    /* PREMIUM SECTION */
+    .premium-section {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: white;
+      border-radius: 20px;
+      padding: 3rem 1.5rem;
+      margin: 3rem auto;
+      position: relative;
+      overflow: hidden;
+      max-width: 95%;
+    }
+
+    .premium-section::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -10%;
+      width: 200px;
+      height: 200px;
+      background: rgba(184, 134, 11, 0.1);
+      border-radius: 50%;
+    }
+
+    .premium-content {
+      max-width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .premium-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+
+    .premium-features {
+      list-style: none;
+      margin: 2rem 0;
+    }
+
+    .premium-features li {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      line-height: 1.5;
+    }
+
+    .premium-features i {
+      color: var(--secondary);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    /* TESTIMONIALS */
+    .testimonials {
+      background: #020617;
+      color: white;
+      padding: 4rem 1.25rem;
+      position: relative;
+    }
+
+    .testimonials-container {
+      max-width: 100%;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 0 10px;
+    }
+
+    .testimonial {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 12px;
+      border-left: 4px solid var(--secondary);
+    }
+
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .author-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--secondary);
+    }
+
+    .author-info h5 {
+      color: white;
+      font-size: 1.1rem;
+    }
+
+    .author-info p {
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+
+    .stars {
+      color: var(--secondary);
+      margin-top: 5px;
+      font-size: 0.9rem;
+    }
+
+    /* MAP SECTION */
+    .map-section {
+      padding: 4rem 1.25rem;
+      background: var(--light);
+    }
+
+    .map-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .map-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .map-wrapper {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      height: 400px;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    .map-info {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .map-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .map-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .map-info-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(184, 134, 11, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--secondary);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .map-info-text h4 {
+      color: var(--primary);
+      margin-bottom: 5px;
+      font-size: 1.1rem;
+    }
+
+    /* CONTACT */
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .contact-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(184, 134, 11, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--secondary);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .contact-form {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-form h3 {
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      font-size: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.9rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.1);
+    }
+
+    /* FOOTER - Mobile Optimized */
+    footer {
+      background: #020617;
+      color: #9ca3af;
+      padding: 3rem 1.25rem 1.5rem;
+    }
+
+    .footer-content {
+      max-width: 100%;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-column h4 {
+      color: white;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-column h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--secondary);
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links a {
+      color: #9ca3af;
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+      color: #9ca3af;
+      transition: var(--transition);
+      font-size: 1rem;
+    }
+
+    .social-icons a:hover {
+      background: var(--secondary);
+      color: var(--primary);
+      transform: translateY(-5px);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    /* RESPONSIVE MEDIA QUERIES */
+    @media (max-width: 1200px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .nav-links {
+        gap: 1rem;
+      }
+      
+      .cta-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+      }
+      
+      .logo span {
+        display: none;
+      }
+      
+      .logo-short {
+        display: inline;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu {
+        display: block;
+      }
+      
+      .nav-links:not(.mobile-nav-links) {
+        display: none;
+      }
+      
+      .logo {
+        font-size: 1.1rem;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+      
+      .hero-buttons {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+        min-width: auto;
+      }
+      
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+      
+      .premium-title {
+        font-size: 1.6rem;
+      }
+      
+      .properties, .services {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .contact-form {
+        padding: 1.5rem;
+      }
+      
+      .map-info {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav {
+        padding: 12px 15px;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .hero {
+        padding: 0 15px;
+        min-height: 500px;
+      }
+      
+      .section-title h2 {
+        font-size: 1.6rem;
+      }
+      
+      .card {
+        padding: 1.5rem 1rem;
+      }
+      
+      .property-img {
+        height: 180px;
+      }
+      
+      .testimonial {
+        padding: 1.5rem;
+      }
+      
+      .map-wrapper {
+        height: 300px;
+      }
+      
+      .footer-column h4 {
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+      
+      .btn {
+        padding: 0.8rem 1.2rem;
+        font-size: 0.9rem;
+      }
+      
+      .section-title h2 {
+        font-size: 1.4rem;
+      }
+      
+      .property-features {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* UTILITY CLASSES */
+    .text-center {
+      text-align: center;
+    }
+    
+    .mb-1 {
+      margin-bottom: 0.5rem;
+    }
+    
+    .mb-2 {
+      margin-bottom: 1rem;
+    }
+    
+    .mb-3 {
+      margin-bottom: 1.5rem;
+    }
+    
+    .mt-1 {
+      margin-top: 0.5rem;
+    }
+    
+    .mt-2 {
+      margin-top: 1rem;
+    }
+    
+    .mt-3 {
+      margin-top: 1.5rem;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">
+      <i class="fas fa-building"></i>
+      <span class="logo-full">The Bangalore Real Estate Co.</span>
+      <span class="logo-short">BREC</span>
+    </div>
+    
+    <button class="mobile-menu" id="mobileMenu">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#properties">Properties</a>
+      <a href="#premium">Premium</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#map">Location</a>
+      <a href="#contact">Contact</a>
+    </div>
+    
+    <a href="#contact" class="cta-button">
+      <i class="fas fa-phone-alt"></i> <span class="cta-text">Get Consultation</span>
+    </a>
+  </div>
+  
+  <!-- Mobile Navigation Overlay -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay">
+    <button class="close-mobile-menu" id="closeMobileMenu">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="mobile-nav-links">
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#properties">Properties</a>
+      <a href="#premium">Premium</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#map">Location</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1>Bangalore's Premier Real Estate Advisory</h1>
+    <p>Experience luxury real estate with complete transparency, expertise, and personalized service. We specialize in premium residential and commercial properties across Bangalore's most sought-after locations.</p>
+    <div class="hero-buttons">
+      <a href="#properties" class="btn">Explore Properties</a>
+      <a href="#contact" class="btn btn-outline">Schedule Consultation</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-title">
+    <h2>Our Services</h2>
+    <p class="section-subtitle">Comprehensive real estate solutions tailored to your needs</p>
+  </div>
+  <div class="services">
+    <div class="card">
+      <div class="card-icon">
+        <i class="fas fa-home"></i>
+      </div>
+      <h3>Residential Sales</h3>
+      <p>Premium homes, villas & luxury apartments in Bangalore's most exclusive neighborhoods like Indiranagar, Koramangala, and Whitefield.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">
+        <i class="fas fa-file-contract"></i>
+      </div>
+      <h3>Leasing & Rentals</h3>
+      <p>Verified tenants and professional rental management with complete legal compliance and transparent pricing.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">
+        <i class="fas fa-building"></i>
+      </div>
+      <h3>Commercial Advisory</h3>
+      <p>Strategic advice for office spaces, retail outlets, and investment-grade commercial properties in prime business districts.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROPERTIES -->
+<section id="properties">
+  <div class="section-title">
+    <h2>Featured Properties</h2>
+    <p class="section-subtitle">Exclusive selection of premium properties</p>
+  </div>
+  <div class="properties">
+    <div class="property">
+      <div class="property-tag">LUXURY</div>
+      <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Luxury Apartment" class="property-img">
+      <div class="property-content">
+        <h4>Luxury Apartment – Indiranagar</h4>
+        <p class="property-price">₹2.5 Cr</p>
+        <p>3 BHK luxury apartment with premium finishes and panoramic city views.</p>
+        <div class="property-features">
+          <div class="feature"><i class="fas fa-bed"></i> 3 Beds</div>
+          <div class="feature"><i class="fas fa-bath"></i> 3 Baths</div>
+          <div class="feature"><i class="fas fa-ruler-combined"></i> 2200 sq.ft</div>
+        </div>
+      </div>
+    </div>
+    <div class="property">
+      <div class="property-tag">COMMERCIAL</div>
+      <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Office Space" class="property-img">
+      <div class="property-content">
+        <h4>Premium Office Space – MG Road</h4>
+        <p class="property-price">₹1.2 L / month</p>
+        <p>Fully furnished office space in Bangalore's central business district.</p>
+        <div class="property-features">
+          <div class="feature"><i class="fas fa-building"></i> Grade A</div>
+          <div class="feature"><i class="fas fa-users"></i> 15+ People</div>
+          <div class="feature"><i class="fas fa-ruler-combined"></i> 1800 sq.ft</div>
+        </div>
+      </div>
+    </div>
+    <div class="property">
+      <div class="property-tag">PREMIUM</div>
+      <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Modern Villa" class="property-img">
+      <div class="property-content">
+        <h4>Modern Villa – North Bangalore</h4>
+        <p class="property-price">₹4.8 Cr</p>
+        <p>Contemporary villa with private garden, pool, and smart home features.</p>
+        <div class="property-features">
+          <div class="feature"><i class="fas fa-bed"></i> 4 Beds</div>
+          <div class="feature"><i class="fas fa-bath"></i> 4.5 Baths</div>
+          <div class="feature"><i class="fas fa-ruler-combined"></i> 5500 sq.ft</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREMIUM SECTION -->
+<section id="premium" class="premium-section">
+  <div class="premium-content">
+    <h2 class="premium-title">Premium Client Experience</h2>
+    <p>Our exclusive services go beyond traditional real estate to provide a seamless, luxurious experience for discerning clients.</p>
+    
+    <ul class="premium-features">
+      <li><i class="fas fa-check-circle"></i> <strong>Personalized Property Matching</strong> – AI-driven matching to your exact preferences</li>
+      <li><i class="fas fa-check-circle"></i> <strong>Virtual & 3D Tours</strong> – Immersive property viewing from anywhere</li>
+      <li><i class="fas fa-check-circle"></i> <strong>Legal & Financial Advisory</strong> – End-to-end support with documentation and financing</li>
+      <li><i class="fas fa-check-circle"></i> <strong>Post-Purchase Services</strong> – Interior design, move-in assistance, and property management</li>
+      <li><i class="fas fa-check-circle"></i> <strong>Exclusive Access</strong> – Off-market listings and pre-launch opportunities</li>
+    </ul>
+    
+    <a href="#contact" class="btn">Enquire About Premium Services</a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="section-title">
+    <h2 style="color:white;">Client Testimonials</h2>
+    <p class="section-subtitle" style="color:#cbd5e1;">What our clients say about their experience</p>
+  </div>
+  
+  <div class="testimonials-container">
+    <div class="testimonial">
+      <p class="testimonial-text">"The team at Bangalore Real Estate Co. made our home buying experience seamless. Their attention to detail and market knowledge is exceptional."</p>
+      <div class="stars">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+      </div>
+      <div class="testimonial-author">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" class="author-img">
+        <div class="author-info">
+          <h5>Rahul Mehta</h5>
+          <p>Purchased Villa in North Bangalore</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="testimonial">
+      <p class="testimonial-text">"Professional, transparent and extremely helpful throughout the entire leasing process. Found us the perfect office space in record time."</p>
+      <div class="stars">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+      </div>
+      <div class="testimonial-author">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client" class="author-img">
+        <div class="author-info">
+          <h5>Priya Sharma</h5>
+          <p>Leased Commercial Space</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP SECTION -->
+<section id="map" class="map-section">
+  <div class="section-title">
+    <h2>Our Location</h2>
+    <p class="section-subtitle">Visit our office in the heart of Bangalore</p>
+  </div>
+  
+  <div class="map-container">
+    <div class="map-wrapper">
+      <div id="map"></div>
+    </div>
+    
+    <div class="map-info">
+      <h3>Find Us Here</h3>
+      
+      <div class="map-info-item">
+        <div class="map-info-icon">
+          <i class="fas fa-map-marker-alt"></i>
+        </div>
+        <div class="map-info-text">
+          <h4>Office Address</h4>
+          <p>Suite 2B, Redifice Signature, Bowring Hospital Road, Shivaji Nagar, Bengaluru - 560001</p>
+        </div>
+      </div>
+      
+      <div class="map-info-item">
+        <div class="map-info-icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <div class="map-info-text">
+          <h4>Business Hours</h4>
+          <p>Monday - Saturday: 9:00 AM - 7:00 PM<br>Sunday: 10:00 AM - 2:00 PM</p>
+        </div>
+      </div>
+      
+      <div class="map-info-item">
+        <div class="map-info-icon">
+          <i class="fas fa-directions"></i>
+        </div>
+        <div class="map-info-text">
+          <h4>Getting Here</h4>
+          <p>Near Bowring Hospital, 5 minutes from Shivaji Nagar Metro Station. Ample parking available.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="section-title">
+    <h2>Contact Us</h2>
+    <p class="section-subtitle">Get in touch for a personalized consultation</p>
+  </div>
+  
+  <div class="contact-container">
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-icon">
+          <i class="fas fa-map-marker-alt"></i>
+        </div>
+        <div>
+          <h3>Our Office</h3>
+          <p>Suite 2B, Redifice Signature, Bowring Hospital Rd, Bengaluru - 560001</p>
+        </div>
+      </div>
+      
+      <div class="contact-item">
+        <div class="contact-icon">
+          <i class="fas fa-phone-alt"></i>
+        </div>
+        <div>
+          <h3>Phone Number</h3>
+          <p><a href="tel:08049457777" style="color:var(--secondary); text-decoration:none;">080-4945-7777</a></p>
+          <p>Mon-Sat: 9:00 AM - 7:00 PM</p>
+        </div>
+      </div>
+      
+      <div class="contact-item">
+        <div class="contact-icon">
+          <i class="fas fa-envelope"></i>
+        </div>
+        <div>
+          <h3>Email Address</h3>
+          <p><a href="mailto:info@bangalorerealestate.co" style="color:var(--secondary); text-decoration:none;">info@bangalorerealestate.co</a></p>
+          <p>Response within 24 hours</p>
+        </div>
+      </div>
+      
+      <div class="contact-item">
+        <div class="contact-icon">
+          <i class="fas fa-comments"></i>
+        </div>
+        <div>
+          <h3>Live Chat</h3>
+          <p>Chat with our agents online during business hours for instant assistance.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="contact-form">
+      <h3>Schedule a Consultation</h3>
+      <form id="consultationForm">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Your Name" required>
+        </div>
+        <div class="form-group">
+          <input type="email" class="form-control" placeholder="Email Address" required>
+        </div>
+        <div class="form-group">
+          <input type="tel" class="form-control" placeholder="Phone Number" required>
+        </div>
+        <div class="form-group">
+          <select class="form-control" required>
+            <option value="" disabled selected>Select Service</option>
+            <option value="buy">Buy Property</option>
+            <option value="sell">Sell Property</option>
+            <option value="rent">Rent Property</option>
+            <option value="commercial">Commercial Advisory</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" rows="4" placeholder="Your Message"></textarea>
+        </div>
+        <button type="submit" class="btn" style="width:100%;">Submit Request</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-column">
+      <h4>The Bangalore Real Estate Co.</h4>
+      <p>Bangalore's premier real estate advisory firm specializing in luxury residential and commercial properties with over 15 years of market expertise.</p>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    
+    <div class="footer-column">
+      <h4>Quick Links</h4>
+      <ul class="footer-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#properties">Properties</a></li>
+        <li><a href="#premium">Premium Services</a></li>
+        <li><a href="#map">Location</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-column">
+      <h4>Services</h4>
+      <ul class="footer-links">
+        <li><a href="#services">Residential Sales</a></li>
+        <li><a href="#services">Property Leasing</a></li>
+        <li><a href="#services">Commercial Advisory</a></li>
+        <li><a href="#premium">Premium Client Services</a></li>
+        <li><a href="#premium">Property Management</a></li>
+        <li><a href="#premium">Legal Advisory</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-column">
+      <h4>Contact Info</h4>
+      <ul class="footer-links">
+        <li><i class="fas fa-map-marker-alt" style="margin-right:10px;"></i> Redifice Signature, Bengaluru</li>
+        <li><i class="fas fa-phone-alt" style="margin-right:10px;"></i> 080-4945-7777</li>
+        <li><i class="fas fa-envelope" style="margin-right:10px;"></i> info@bangalorerealestate.co</li>
+        <li><i class="fas fa-clock" style="margin-right:10px;"></i> Mon-Sat: 9:00 AM - 7:00 PM</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="copyright">
+    © 2025 The Bangalore Real Estate Co. All Rights Reserved. | Designed for Excellence
+    <p class="mt-1" style="font-size:0.8rem;">Bangalore's Trusted Real Estate Partner Since 2010</p>
+  </div>
+</footer>
+
+<script>
+  // Mobile Menu Functionality
+  const mobileMenuBtn = document.getElementById('mobileMenu');
+  const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+  const closeMobileMenuBtn = document.getElementById('closeMobileMenu');
+  
+  mobileMenuBtn.addEventListener('click', () => {
+    mobileNavOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+  
+  closeMobileMenuBtn.addEventListener('click', () => {
+    mobileNavOverlay.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  });
+  
+  // Close mobile menu when clicking a link
+  document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNavOverlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    });
+  });
+  
+  // Form Submission
+  document.getElementById('consultationForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Thank you for your inquiry! We will contact you within 24 hours.');
+    this.reset();
+  });
+  
+  // Header scroll effect
+  window.addEventListener('scroll', function() {
+    const header = document.querySelector('header');
+    if (window.scrollY > 100) {
+      header.classList.add('header-scrolled');
+    } else {
+      header.classList.remove('header-scrolled');
+    }
+  });
+  
+  // Google Maps Initialization
+  function initMap() {
+    // Bangalore coordinates
+    const bangalore = { lat: 12.9716, lng: 77.5946 };
+    
+    // Create a map centered at Bangalore
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 14,
+      center: bangalore,
+      mapTypeControl: true,
+      streetViewControl: false,
+      styles: [
+        {
+          "featureType": "all",
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "color": "#f5f5f5"
+            }
+          ]
+        },
+        {
+          "featureType": "all",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#616161"
+            }
+          ]
+        },
+        {
+          "featureType": "poi",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "water",
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "color": "#c9c9c9"
+            }
+          ]
+        }
+      ]
+    });
+    
+    // Marker for office location (approximate Bowring Hospital area)
+    const officeLocation = { lat: 12.9784, lng: 77.6008 };
+    
+    const marker = new google.maps.Marker({
+      position: officeLocation,
+      map: map,
+      title: "The Bangalore Real Estate Co.",
+      icon: {
+        url: "https://maps.google.com/mapfiles/ms/icons/gold-dot.png"
+      }
+    });
+    
+    // Info window for marker
+    const infoWindow = new google.maps.InfoWindow({
+      content: `
+        <div style="padding: 10px;">
+          <h3 style="margin: 0 0 10px; color: #b8860b;">The Bangalore Real Estate Co.</h3>
+          <p style="margin: 0;">Suite 2B, Redifice Signature<br>Bowring Hospital Road, Bengaluru</p>
+          <p style="margin: 10px 0 0;"><a href="https://maps.google.com/?q=12.9784,77.6008" target="_blank" style="color: #1e40af;">Get Directions</a></p>
+        </div>
+      `
+    });
+    
+    marker.addListener("click", () => {
+      infoWindow.open(map, marker);
+    });
+    
+    // Open info window by default on larger screens
+    if (window.innerWidth > 768) {
+      infoWindow.open(map, marker);
+    }
+  }
+  
+  // Adjust CTA text on smaller screens
+  function adjustCTAText() {
+    const ctaText = document.querySelector('.cta-text');
+    if (window.innerWidth < 400) {
+      ctaText.textContent = 'Consult';
+    } else {
+      ctaText.textContent = 'Get Consultation';
+    }
+  }
+  
+  // Adjust logo text on smaller screens
+  function adjustLogo() {
+    const logoFull = document.querySelector('.logo-full');
+    const logoShort = document.querySelector('.logo-short');
+    
+    if (window.innerWidth < 992) {
+      logoFull.style.display = 'none';
+      logoShort.style.display = 'inline';
+    } else {
+      logoFull.style.display = 'inline';
+      logoShort.style.display = 'none';
+    }
+  }
+  
+  // Initialize on load and resize
+  window.addEventListener('load', () => {
+    adjustCTAText();
+    adjustLogo();
+  });
+  
+  window.addEventListener('resize', () => {
+    adjustCTAText();
+    adjustLogo();
+  });
+</script>
+
+</body>
+</html>
